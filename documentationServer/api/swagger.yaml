@@ -1,0 +1,101 @@
+swagger: '2.0'
+info:
+  description: >-
+    本文件提供EC端如何串接遊戲平台以及貨幣交易的API說明。 目前遊戲平台提供標準RESTful API，並採TLS 1.2加密連線。
+    EC端在進行所有操作之前需先進行認證授權之後取得Access Token，後續所有操作皆需在HTTP Header內設定Access
+    Token做為憑證。
+  version: 1.0.0
+  title: Accounting API
+host: '127.0.0.1:3100'
+produces:
+  - application/json;
+consumes:
+  - application/json; charset=utf-8
+securityDefinitions:
+  JWT:
+    description: ''
+    type: apiKey
+    name: Authorization
+    in: header
+security:
+  - JWT: []
+schemes:
+  - http
+definitions:
+  JWT:
+    type: object
+    properties:
+      ecSiteId:
+        type: integer
+        format: int32
+    xml:
+      name: JWT
+paths:
+  /v1/sites/auth:
+    post:
+      tags:
+        - Accounting-Cashless
+      summary: 授權認證
+      description: >-
+        兩端進行站台認證授權，EC端需提供端點用戶登出API URL以供GP端在用戶登出時發出通知，認證授權成功後會回傳token
+        做為後續API操作的憑證。
+      deprecated: false
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - ecSiteId
+              - credential
+              - logoutApiUrl
+            properties:
+              ecSiteId:
+                description: EC站台ID，GP端配發
+                type: number
+                default: 142345
+                example: 142345
+              credential:
+                description: EC站台ID憑據，GP端配發
+                type: string
+                default: secrectkey
+                example: secrectkey
+              logoutApiUrl:
+                description: 用戶登出時GP端通知EC端的API URL，詳見說明
+                type: string
+                format: url
+                default: 'https://api.gp.com/api/logout'
+                example: 'https://api.gp.com/api/logout'
+      responses:
+        '200':
+          description: 登入成功後回傳Access Token，失敗時僅回傳狀態代碼
+          schema:
+            type: object
+            required:
+              - status
+              - accessToken
+              - timestamp
+            properties:
+              status:
+                description: 狀態代碼，登入成功時值為0，其它值請參閱狀態代碼說明
+                type: integer
+                format: int32
+                minimum: 1
+                maximum: 9999
+                enum:
+                  - 1
+                  - 0
+                  - 2
+                default: 0
+                example: 0
+              accessToken:
+                description: Access token，做為後續API操作的憑證
+                type: string
+                default: eyJhbGciOiJIUzI1N.e30.XmNK3GpH3Ys_7wsQ
+                example: eyJhbGciOiJIUzI1N.e30.XmNK3GpH3Ys_7wsQ
+              timestamp:
+                description: 當前時間戳記，UNIX Timestamp格式
+                type: number
+                default: 1539670602
+                example: 1539670602

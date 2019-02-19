@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": "js",
+  "ignore": ["src/**/*.spec.js"],
+  "exec": "node src/App.js | node_modules/.bin/pino-colada | pino-socket -a 192.168.10.166 -p 5000"
+}

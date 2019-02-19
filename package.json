@@ -1,0 +1,85 @@
+{
+  "name": "accountingServer",
+  "version": "0.0.1",
+  "description": "fastifyServer",
+  "main": "App.js",
+  "repository": "https://git.clctech.co/projects/GP/repos/accounting/browse/accountingServer",
+  "author": "thaiwu",
+  "license": "MIT",
+  "scripts": {
+    "rebuild": "yarn install",
+    "build:docker": "sh docker-run.sh",
+    "remove:docker": "sh docker-kill-all.sh",
+    "start": "node src/App.js",
+    "start:dev": "nodemon",
+    "eslint": "./node_modules/.bin/eslint ./src",
+    "unit": "tap -J src/api/*/*.test.js src/api/*/*/*.test.js src/api/*/*/*/*.test.js src/api/*/*/*/*/*.test.js",
+    "test:cov": "jest --coverage",
+    "coverage": "npm run unit -- --cov --coverage-report=html",
+    "coveralls": "npm run unit --  --cov",
+    "test": "npm run coveralls",
+    "dredd": "./node_modules/.bin/dredd --config ./dredd.yml"
+  },
+  "dependencies": {
+    "aigle": "^1.13.0",
+    "arangojs": "^6.10.0",
+    "autocannon": "^3.1.0",
+    "bignumber.js": "^8.0.1",
+    "dotenv": "^6.1.0",
+    "fastify": "^1.13.0",
+    "fastify-cors": "^0.2.0",
+    "fastify-helmet": "^2.2.0",
+    "fastify-jwt": "^0.7.0",
+    "fastify-no-icon": "^2.0.0",
+    "fs-extra": "^7.0.1",
+    "heartbeats": "^5.0.1",
+    "ioredis": "^4.2.0",
+    "joi": "^14.0.6",
+    "loadsh": "^0.0.3",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "moment-range": "^4.0.1",
+    "pino": "^5.8.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/ioredis": "^4.0.4",
+    "@types/lodash": "^4.14.118",
+    "@types/mocha": "^5.2.5",
+    "@types/uuid": "^3.4.4",
+    "chai": "^4.2.0",
+    "dredd": "^5.2.0",
+    "eslint": "^5.9.0",
+    "eslint-config-google": "^0.11.0",
+    "eslint-plugin-import": "^2.14.0",
+    "husky": "^1.1.3",
+    "jest": "^23.6.0",
+    "lint-staged": "^8.0.4",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.6",
+    "nyc": "^13.1.0",
+    "opener": "^1.5.1",
+    "pino-colada": "^1.4.4",
+    "pino-socket": "^1.0.1",
+    "split2": "^3.0.0",
+    "tap": "^12.1.0"
+  },
+  "jest": {
+    "transform": {},
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/__mocks__/**",
+      "!**/__tests__/**"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint "
+    ]
+  }
+}
