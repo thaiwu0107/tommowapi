@@ -63,5 +63,4 @@ package-lock.json
 
 # generated code
 report.html
-.env
 documentation
