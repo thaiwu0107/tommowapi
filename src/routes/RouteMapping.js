@@ -10,7 +10,7 @@
 */
 exports.v1 = [
     { path: '/test/test', enable: true, method: 'GET', module: 'test/test', endpoint: 'test', beforeHandler: [] },
-    { path: '/q/q', enable: true, method: 'POST', module: 'q/q', endpoint: 'q', beforeHandler: [] },
+    { path: '/q/q', enable: true, method: 'GET', module: 'q/q', endpoint: 'q', beforeHandler: [] },
 ];
 // exports.v2 = [
 //     {path: '/example', enable: true, method: 'GET', module: 'test/example', endpoint: 'test', beforeHandler: []},
