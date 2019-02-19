@@ -1,7 +1,7 @@
 // const _ = require('lodash');
 // const moment = require('moment');
 
-exports.test = async (request, reply) => {
+exports.q = async (request, reply) => {
     const qBigType = request.query.BigType.toString();
     const qDate = request.query.Date.toString();
     const qSmallType = request.query.SmallType.toString();
