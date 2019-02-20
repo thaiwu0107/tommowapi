@@ -24,8 +24,11 @@ exports.test = async (request, reply) => {
             case '@ST':
                 rawObj.SmallType = rawData[1];
                 break;
-            case '@C':
-                rawObj.Cost = rawData[1];
+            case '@C1':
+                rawObj.Cost1 = rawData[1];
+                break;
+            case '@C2':
+                rawObj.Cost2 = rawData[1];
                 break;
         }
     });
